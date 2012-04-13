@@ -133,7 +133,7 @@ You can usually do this from your providers Management Consoles
 	* You can do this only if the specified redirect URI is accessable to the service provider.
 * Why is there no list of scopes for Google?
 	* I would love to be able to provide a list for you, but I can't find one.) 
-	* A few scopes include 'https://www.googleapis.com/auth/userinfo.email' and 'https://www.googleapis.com/auth/userinfo.profile'
+	* A few scopes include `https://www.googleapis.com/auth/userinfo.email` and `https://www.googleapis.com/auth/userinfo.profile`
 	* And yes, they do appear to be long urls.
 * I want to use a provider that is not supported.
 	* While I'm trying my best to provide a workflow that supports all providers, this is difficult because not all providers support the full OAuth 2.0 specification.

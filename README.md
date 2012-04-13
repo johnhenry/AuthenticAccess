@@ -59,10 +59,10 @@ As of now the best way to do this is to use javascript to redirect the user to a
 ####I-3c: Next, call the API_SERVICE static function, Retrive_Data to retrieve data. Your code should look something like this:
 $data = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
 But before you can do that, you need to defile all of the parameters to pass into the function.
-	*$retrieve_uri - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
-		A list of Retrieve URI's for a few popular providers is provided in Part IV-4.
-	*$access_token - This is the access token sent by the service provider. If you used the technique described in I-3a, it should be available through $_GET["access_token"] as well as $_REQUEST["access_token"].
-	*$data_function - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
+	* $retrieve_uri - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
+		* A list of Retrieve URI's for a few popular providers is provided in Part IV-4.
+	* $access_token - This is the access token sent by the service provider. If you used the technique described in I-3a, it should be available through $_GET["access_token"] as well as $_REQUEST["access_token"].
+	* $data_function - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
 Here is a more concrete example using Facebook:
 	```$data = API_SERVICE::Retrive_Data("https://graph.facebook.com/me/",$_REQUEST['access_token']);```
 ####I-3d: Now, feel free to do what you want with the retrieved data.
@@ -84,12 +84,12 @@ I don't know how to set up the data function for API_SERVICE::Retrive_Data.
 Even though the use is logged in, Microsoft (or some other provider) insisists that the user enter his or her password before proceeding.
 	You can look at this as either a bug or a feature. Microsoft specifically requires that you add the scope "wl.signin" in order for the user not to have to enter a password without having to log in. There may be a similar method for other providers.
 I can't find the proper URIs for (insert service provider here).
-	*I've scowered all sorts of pages and documentation to find the needed URIs for the most common service providers so that you don't have to! Unfortunately, these are not easy to find for all providers.
-	*I can suggest two things:
-		*1) I haven't used standard names for these uri (for example "auth uri" and "retrieve uri" are just names that I made up so that I could keep track of them), so try searching for terms who's definitions seem that sound similar to mine.
-		*2) Look through the service provider's documentation and look at variables attached to certain URIs. 
-			*If "access_token" is attached to a URI in the documentation, that's probably I called "retrieve uri". 
-			*If it has "scope", "client_id", etc. attached, that's probably what I call "auth uri".
+	* I've scowered all sorts of pages and documentation to find the needed URIs for the most common service providers so that you don't have to! Unfortunately, these are not easy to find for all providers.
+	* I can suggest two things:
+		* 1) I haven't used standard names for these uri (for example "auth uri" and "retrieve uri" are just names that I made up so that I could keep track of them), so try searching for terms who's definitions seem that sound similar to mine.
+		* 2) Look through the service provider's documentation and look at variables attached to certain URIs. 
+			* If "access_token" is attached to a URI in the documentation, that's probably I called "retrieve uri". 
+			* If it has "scope", "client_id", etc. attached, that's probably what I call "auth uri".
 Can I test this locally (without having to upload it to a remote server?)
 	You can do this only if the specified redirect URI is accessable to the service provider.
 Why is there no list of scopes for Google?
@@ -116,29 +116,29 @@ Here are some useful URIs
 	*These specific urls are available as static members of the API_Service class via API_SERVICE::AUTH_URI_FACEBOOK, API_SERVICE::AUTH_URI_GOOGLE, API_SERVICE::AUTH_URI_MICROSOFT, and API_SERVICE::AUTH_URI_GITHUB.
 
 ###IV-3: Scopes
-- Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
+* Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
 	* Delimiter:`"," (A comma)`
-- Google   : `(See "Common Issues" section)`
-	*Delimiter:`"+" (A plus sign)`
-- Microsoft: `http://msdn.microsoft.com/en-us/library/live/hh243646.aspx`
-	*Delimiter:`"%20" (A url encoded space)`
+* Google   : `(See "Common Issues" section)`
+	* Delimiter:`"+" (A plus sign)`
+* Microsoft: `http://msdn.microsoft.com/en-us/library/live/hh243646.aspx`
+	* Delimiter:`"%20" (A url encoded space)`
 
 ###IV-4: Retrieve URIs
-- Facebook : `https://graph.facebook.com/me/`
-- Google   : `https://www.googleapis.com/oauth2/v1/tokeninfo`
-	-Microsoft: `https://apis.live.net/v5.0/me/`
+* Facebook : `https://graph.facebook.com/me/`
+* Google   : `https://www.googleapis.com/oauth2/v1/tokeninfo`
+* Microsoft: `https://apis.live.net/v5.0/me/`
 		*These specific urls are available as static members of the API_Service class via API_SERVICE::RETRIEVE_URI_FACEBOOK, API_SERVICE::RETRIEVE_URI_GOOGLE, API_SERVICE::RETRIEVE_URI_MICROSOFT, and API_SERVICE::RETRIEVE_URI_GITHUB.
 
 ###IV-5: Management Console URIs
-	-Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
-	-Facebook : `"https://www.facebook.com/settings?tab=applications`
-	-Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
+* Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
+* Facebook : `https://www.facebook.com/settings?tab=applications`
+* Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
 
 ##Part V: DEMOS
 There are two demos: login.php and login_multi.php.
 Hopefully, setup is self explanatory, but just in case, in order to get them to work properly, you need to do a few things:
-	*A) Ensure that each login and request file includes or requires AuthenticAccess.php. Right now, they are set up to improt it from a sister directory entitled "bin".
-	*B) Create applications on Facebook, Google, and Microsoft as described in the above documentation and put their client ids in info.php
-	*C) Place request.php and request_multi.php on the web (it won't work unless they are located at public factin urls)
-	*D) Set "REDIRECT_URI" to point to request.php and request_multi.php within login.php and login_multi.php respectively
+	* A) Ensure that each login and request file includes or requires AuthenticAccess.php. Right now, they are set up to improt it from a sister directory entitled "bin".
+	* B) Create applications on Facebook, Google, and Microsoft as described in the above documentation and put their client ids in info.php
+	* C) Place request.php and request_multi.php on the web (it won't work unless they are located at public factin urls)
+	* D) Set "REDIRECT_URI" to point to request.php and request_multi.php within login.php and login_multi.php respectively
 

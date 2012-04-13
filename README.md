@@ -13,8 +13,9 @@ Keep in mind that many (if not most (if not all)) APIs should be considered beta
 ##PART I:SETTING UP YOUR APPLICATION
 ###I-0:Choosing a service provider.
 When choosing a service provider, you much choose one with the following two properties:
-* 1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
-* 2. Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
+
+1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
+2. Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
 
 It's important to note that not all provides support the full OAuth 2.0 specification and will not work with this library.
 * Popular providers NOT CURRENTLY SUPPORTED by this library include include Github, LinkedIn, and Twitter.
@@ -24,7 +25,7 @@ It's important to note that not all provides support the full OAuth 2.0 specific
 Each OAuth 2.0 Provider should have an api console to manage your application online.
 ####I-1a: Find it by searching the web for something like "YOUR_SERVICE_PROVIDER OAuth 2.0 API" or try contacting the service provider directly.
 
-A list of API Consoles URIs for a few popular providers is provided in *Part IV-1*.
+A list of API Consoles URIs for a few popular providers is provided in **Part IV-1**.
 ####I-1b: Once you have found the API console, you are going to have to create a new app. The way in which you do this may vary between providers, but it should be easy to figure out.
 
 ####I-1c: Next, set up your applications redirect URI(s). This is where the application will redirect an access token for use when retrieving data.
@@ -43,18 +44,18 @@ Your app needs a starting page. This is where the user will begin the process of
 
 ####I-2b: Next, use the API_Service constructor to create a new service object. Your code should like something like this:
 
-* $service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
+* **$service** = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
 	* But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
-* $state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
-* $auth_uri - This is the address that you will send the user to in order to access their data.
-	* A list of AUTH URIs for some popular providers is provided in *Part IV-2*.
-* $client_id - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
-* $scope - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
+* **$state** - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
+* **$auth_uri** - This is the address that you will send the user to in order to access their data.
+	* A list of AUTH URIs for some popular providers is provided in **Part IV-2**.
+* **$client_id** - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
+* **$scope** - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
 	* Note that the delimiter for the list may also vary by provider.
-	* A list of scopes for some popular providers along with their necessary delimiters is provided in *Part IV-3*.
-* $redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
+	* A list of scopes for some popular providers along with their necessary delimiters is provided in **Part IV-3**.
+* **$redirect_uri** - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
 	* You will be setting up this page in step I-3.
-* $request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
+* **$request_type** - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
 
 #####Example
 Here is a more concrete example using Facebook:
@@ -74,10 +75,10 @@ As of now the best way to do this is to use javascript to redirect the user to a
 ####I-3c: Next, call the API_SERVICE static function, Retrive_Data to retrieve data. Your code should look something like this:
 * $data = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
 But before you can do that, you need to defile all of the parameters to pass into the function.
-* $retrieve_uri - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
-	* A list of Retrieve URI's for a few popular providers is provided in *Part IV-4*.
-* $access_token - This is the access token sent by the service provider. If you used the technique described in I-3a, it should be available through $_GET["access_token"] as well as $_REQUEST["access_token"].
-* $data_function - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
+* **$retrieve_uri** - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
+	* A list of Retrieve URI's for a few popular providers is provided in **Part IV-4**.
+* **$access_token** - This is the access token sent by the service provider. If you used the technique described in I-3a, it should be available through $_GET["access_token"] as well as $_REQUEST["access_token"].
+* **$data_function** - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
 
 #####Example
 Here is a more concrete example using Facebook:
@@ -94,7 +95,7 @@ You should first create a user account with a service provider so that you can t
 ###II-2: Managing Authorized Apps
 There will be times where you need to know whether or not you have authorized an application to access your accout or deauthorize an application to start from scratch.
 You can usually do this from your providers Management Consoles
-	A list of Management Console URIs for a few popular providers is provided in *Part IV-5*.
+	A list of Management Console URIs for a few popular providers is provided in **Part IV-5**.
 
 ##Part III:COMMON ISSUES
 * When a user attemps to use my application, Microsoft (or some other provier) claims that my redirect uri is invalid, although I'm sure it's correct.
@@ -157,6 +158,7 @@ Here are some useful URIs
 ##Part V: DEMOS
 There are two demos: login.php and login_multi.php.
 Hopefully, setup is self explanatory, but just in case, in order to get them to work properly, you need to do a few things:
+
 1. Ensure that each login and request file includes or requires AuthenticAccess.php. Right now, they are set up to improt it from a sister directory entitled "bin".
 2. Create applications on Facebook, Google, and Microsoft as described in the above documentation and put their client ids in info.php
 3. Place request.php and request_multi.php on the web (it won't work unless they are located at public factin urls)

@@ -3,6 +3,7 @@ Version: 0.5
 
 ##INTRODUCTION
 This is a library that you can use to allow your PHP application access to user data through a third party service provider.
+
 * Important Note: while the workflow described below requires support for a non-javascript workflow, there is a step in which you may need to use Javascript.
 
 Keep in mind that many (if not most (if not all)) APIs should be considered beta products and are subject to changes.
@@ -66,14 +67,15 @@ Here is a more concrete example using Facebook:
 
 ###I-3: Coding Your Ending Page
 Your app needs an ending page. This is where the user will be directed once he or she has authorized service provider to deliver his or her data. This page must match the request uri described in step I-1c.
-####I-3a: Your access token will be passed through a url's hash string. (Things that show up after a "#"). Unfortunately, as far as I can tell, PHP cannot read this hash string. 
+####I-3a: Your access token will be passed through a url's hash string. (Things that show up after a "#"). Unfortunately, as far as I can tell, PHP cannot read this hash string.
+
 As of now the best way to do this is to use javascript to redirect the user to a web page with the hash "#" replaced by a question mark "?".
 * You may place the following Javascirpt on your ending page before your PHP code in order to do such that:
 ```<script> if(document.URL.indexOf("#") !== -1) window.location = document.URL.replace("#","?");</script>```
 * This code turns the hash string into a query string, thereby making the passed parameters available to php's $_GET and $_REQUEST arrays. Hopefully that's enough to be able to move on...
 ####I-3b: On the ending page of your app, import the included "API_Service.php" file using the PHP Standard Library Function include or require.
 ####I-3c: Next, call the API_SERVICE static function, Retrive_Data to retrieve data. Your code should look something like this:
-* $data = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
+* **$data** = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
 But before you can do that, you need to defile all of the parameters to pass into the function.
 * **$retrieve_uri** - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
 	* A list of Retrieve URI's for a few popular providers is provided in **Part IV-4**.

@@ -9,7 +9,7 @@ Version: 0.5
 		However, this program is based on the OAuth 2.0 specification, so as long as the provider adheres to that, there should be no problem.
 
 ##PART I:SETTING UP YOUR APPLICATION
-	###I-0:Choosing a service provider.
+###I-0:Choosing a service provider.
 		When choosing a service provider, you much choose one with the following two properties:
 			1)Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
 			2)Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).

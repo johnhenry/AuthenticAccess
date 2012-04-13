@@ -105,34 +105,34 @@ This documentation is confusing!
 ##Part IV: USEFUL URIS
 Here are some useful URIs
 ###IV-1: API Consoles
-*Facebook : `https://developers.facebook.com/apps`
-*Google   : `https://code.google.com/apis/console`
-*Microsoft: `https://manage.dev.live.com`
+* Facebook : `https://developers.facebook.com/apps`
+* Google   : `https://code.google.com/apis/console`
+* Microsoft: `https://manage.dev.live.com`
 
 ###IV-2: Auth URIs
-*Facebook : `https://www.facebook.com/dialog/oauth`
-*Google   : `https://accounts.google.com/o/oauth2/auth`
-*Microsoft: `https://oauth.live.com/authorize`
+* Facebook : `https://www.facebook.com/dialog/oauth`
+* Google   : `https://accounts.google.com/o/oauth2/auth`
+* Microsoft: `https://oauth.live.com/authorize`
 	*These specific urls are available as static members of the API_Service class via API_SERVICE::AUTH_URI_FACEBOOK, API_SERVICE::AUTH_URI_GOOGLE, API_SERVICE::AUTH_URI_MICROSOFT, and API_SERVICE::AUTH_URI_GITHUB.
 
 ###IV-3: Scopes
-*Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
-	*Delimiter:`"," (A comma)`
-*Google   : `(See "Common Issues" section)`
+- Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
+	* Delimiter:`"," (A comma)`
+- Google   : `(See "Common Issues" section)`
 	*Delimiter:`"+" (A plus sign)`
-*Microsoft: `http://msdn.microsoft.com/en-us/library/live/hh243646.aspx`
+- Microsoft: `http://msdn.microsoft.com/en-us/library/live/hh243646.aspx`
 	*Delimiter:`"%20" (A url encoded space)`
 
 ###IV-4: Retrieve URIs
-*Facebook : `https://graph.facebook.com/me/`
-*Google   : `https://www.googleapis.com/oauth2/v1/tokeninfo`
-*Microsoft: `https://apis.live.net/v5.0/me/`
-	*These specific urls are available as static members of the API_Service class via API_SERVICE::RETRIEVE_URI_FACEBOOK, API_SERVICE::RETRIEVE_URI_GOOGLE, API_SERVICE::RETRIEVE_URI_MICROSOFT, and API_SERVICE::RETRIEVE_URI_GITHUB.
+- Facebook : `https://graph.facebook.com/me/`
+- Google   : `https://www.googleapis.com/oauth2/v1/tokeninfo`
+	-Microsoft: `https://apis.live.net/v5.0/me/`
+		*These specific urls are available as static members of the API_Service class via API_SERVICE::RETRIEVE_URI_FACEBOOK, API_SERVICE::RETRIEVE_URI_GOOGLE, API_SERVICE::RETRIEVE_URI_MICROSOFT, and API_SERVICE::RETRIEVE_URI_GITHUB.
 
 ###IV-5: Management Console URIs
--Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
--Facebook : `"https://www.facebook.com/settings?tab=applications`
--Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
+	-Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
+	-Facebook : `"https://www.facebook.com/settings?tab=applications`
+	-Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
 
 ##Part V: DEMOS
 There are two demos: login.php and login_multi.php.

@@ -5,17 +5,17 @@ Version: 0.5
 This is a library that you can use to allow your PHP application access to user data through a third party service provider.
 	Important Note: while the workflow described below requires support for a non-javascript workflow, there is a step in which you may need to use Javascript.
 Keep in mind that many (if not most (if not all)) APIs should be considered beta products and are subject to changes.
-	If you application does not work and you can't see to find the problem, it's entirely possible that the API's provider may have modified it, so check with them.
-	However, this program is based on the OAuth 2.0 specification, so as long as the provider adheres to that, there should be no problem.
+	* If you application does not work and you can't see to find the problem, it's entirely possible that the API's provider may have modified it, so check with them.
+	* However, this program is based on the OAuth 2.0 specification, so as long as the provider adheres to that, there should be no problem.
 
 ##PART I:SETTING UP YOUR APPLICATION
 ###I-0:Choosing a service provider.
 When choosing a service provider, you much choose one with the following two properties:
-	1)Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
-	2)Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
+	1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
+	2. Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
 It's important to note that not all provides support the full OAuth 2.0 specification and will not work with this library.
-	Popular providers NOT CURRENTLY SUPPORTED by this library include include Github, LinkedIn, and Twitter.
-	Popular providers that do support this library include Facebook, Google, and Microsoft.
+	* Popular providers NOT CURRENTLY SUPPORTED by this library include include Github, LinkedIn, and Twitter.
+	* Popular providers that do support this library include Facebook, Google, and Microsoft.
 
 ###I-1: The OAuth 2.0 API Console
 Each OAuth 2.0 Provider should have an api console to manage your application online.
@@ -33,16 +33,16 @@ Your app needs a starting page. This is where the user will begin the process of
 ####I-2b: Next, use the API_Service constructor to create a new service object. Your code should like something like this:
 $service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
 But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
-	-$state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
-	-$auth_uri - This is the address that you will send the user to in order to access their data.
-		-A list of AUTH URIs for some popular providers is provided in part IV-2.
-	-$client_id - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
-	-$scope - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
-		Note that the delimiter for the list may also vary by provider.
-		A list of scopes for some popular providers along with their necessary delimiters is provided in part IV-3.
-	-$redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
-		You will be setting up this page in step I-3.
-	-$request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
+	* $state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
+	* $auth_uri - This is the address that you will send the user to in order to access their data.
+		* A list of AUTH URIs for some popular providers is provided in part IV-2.
+	* $client_id - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
+	* $scope - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
+		* Note that the delimiter for the list may also vary by provider.
+		* A list of scopes for some popular providers along with their necessary delimiters is provided in part IV-3.
+	* $redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
+		* You will be setting up this page in step I-3.
+	* $request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
 Here is a more concrete example using Facebook:
 	```$service = new API_Service("facebook" ,API_SERVICE::AUTH_URI_FACEBOOK ,FACEBOOK_CLIENT_ID ,FACEBOOK_SCOPE ,"www.myapplication.com/login.php");```
 ####I-2c: All that is left to do is to direct a user to to the state's link provided by $service-> link. You may do this by adding it to an anchor's href attribute like so:
@@ -77,30 +77,30 @@ You can usually do this from your providers Management Consoles
 	A list of Management Console URIs for a few popular providers is provided in Part IV-5.
 
 ##Part III:COMMON ISSUES
-When a user attemps to use my application, Microsoft (or some other provier) claims that my redirect uri is invalid, although I'm sure it's correct.
-	It seems to take a while for this change to propogate throughout Microsoft's ecosystem. All you can really do is wait. I haven't observed a similar issue with Google or Facebook.
-I don't know how to set up the data function for API_SERVICE::Retrive_Data.
-	There is no standard way in which you can expect a provider to return data, so it's best to try using
-Even though the use is logged in, Microsoft (or some other provider) insisists that the user enter his or her password before proceeding.
-	You can look at this as either a bug or a feature. Microsoft specifically requires that you add the scope "wl.signin" in order for the user not to have to enter a password without having to log in. There may be a similar method for other providers.
-I can't find the proper URIs for (insert service provider here).
+* When a user attemps to use my application, Microsoft (or some other provier) claims that my redirect uri is invalid, although I'm sure it's correct.
+	* It seems to take a while for this change to propogate throughout Microsoft's ecosystem. All you can really do is wait. I haven't observed a similar issue with Google or Facebook.
+* I don't know how to set up the data function for API_SERVICE::Retrive_Data.
+	* There is no standard way in which you can expect a provider to return data, so it's best to try using
+* Even though the use is logged in, Microsoft (or some other provider) insisists that the user enter his or her password before proceeding.
+	* You can look at this as either a bug or a feature. Microsoft specifically requires that you add the scope "wl.signin" in order for the user not to have to enter a password without having to log in. There may be a similar method for other providers.
+* I can't find the proper URIs for (insert service provider here).
 	* I've scowered all sorts of pages and documentation to find the needed URIs for the most common service providers so that you don't have to! Unfortunately, these are not easy to find for all providers.
 	* I can suggest two things:
-		* 1) I haven't used standard names for these uri (for example "auth uri" and "retrieve uri" are just names that I made up so that I could keep track of them), so try searching for terms who's definitions seem that sound similar to mine.
-		* 2) Look through the service provider's documentation and look at variables attached to certain URIs. 
+		1. I haven't used standard names for these uri (for example "auth uri" and "retrieve uri" are just names that I made up so that I could keep track of them), so try searching for terms who's definitions seem that sound similar to mine.
+		2. Look through the service provider's documentation and look at variables attached to certain URIs. 
 			* If "access_token" is attached to a URI in the documentation, that's probably I called "retrieve uri". 
 			* If it has "scope", "client_id", etc. attached, that's probably what I call "auth uri".
-Can I test this locally (without having to upload it to a remote server?)
-	You can do this only if the specified redirect URI is accessable to the service provider.
-Why is there no list of scopes for Google?
-	I would love to be able to provide a list for you, but I can't find one.) 
-	A few scopes include 'https://www.googleapis.com/auth/userinfo.email' and 'https://www.googleapis.com/auth/userinfo.profile'
-	And yes, they do appear to be long urls.
-I want to use a provider that is not supported.
-	While I'm trying my best to provide a workflow that supports all providers, this is difficult because not all providers support the full OAuth 2.0 specification.
-	I'm in the process of adding support for all possible workflows to this library, but the best thing that you can do to help is to contact your provider an ask them to include support for the full spec.
-This documentation is confusing!
-	I'm still working on it...
+* Can I test this locally? (without having to upload it to a remote server?)
+	* You can do this only if the specified redirect URI is accessable to the service provider.
+* Why is there no list of scopes for Google?
+	* I would love to be able to provide a list for you, but I can't find one.) 
+	* A few scopes include 'https://www.googleapis.com/auth/userinfo.email' and 'https://www.googleapis.com/auth/userinfo.profile'
+	* And yes, they do appear to be long urls.
+* I want to use a provider that is not supported.
+	* While I'm trying my best to provide a workflow that supports all providers, this is difficult because not all providers support the full OAuth 2.0 specification.
+	* I'm in the process of adding support for all possible workflows to this library, but the best thing that you can do to help is to contact your provider an ask them to include support for the full spec.
+* This documentation is confusing!
+	* I'm still working on it...
 
 ##Part IV: USEFUL URIS
 Here are some useful URIs
@@ -117,11 +117,11 @@ Here are some useful URIs
 
 ###IV-3: Scopes
 * Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
-	* Delimiter:`"," (A comma)`
-* Google   : `(See "Common Issues" section)`
-	* Delimiter:`"+" (A plus sign)`
+	* Delimiter:`,` (A comma)
+* Google   : (See "Common Issues" section)
+	* Delimiter:`+` (A plus sign)
 * Microsoft: `http://msdn.microsoft.com/en-us/library/live/hh243646.aspx`
-	* Delimiter:`"%20" (A url encoded space)`
+	* Delimiter:`%20`(A url encoded space)
 
 ###IV-4: Retrieve URIs
 * Facebook : `https://graph.facebook.com/me/`
@@ -132,7 +132,7 @@ Here are some useful URIs
 ###IV-5: Management Console URIs
 * Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
 * Facebook : `https://www.facebook.com/settings?tab=applications`
-* Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
+* Microsoft: `https://profile.live.com/` (Click "Manage" under "Connected To")
 
 ##Part V: DEMOS
 There are two demos: login.php and login_multi.php.

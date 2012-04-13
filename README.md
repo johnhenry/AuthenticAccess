@@ -2,6 +2,7 @@
 Version: 0.5
 
 ##INTRODUCTION
+
 This is a library that you can use to allow your PHP application access to user data through a third party service provider.
 
 * Important Note: while the workflow described below requires support for a non-javascript workflow, there is a step in which you may need to use Javascript.
@@ -12,7 +13,9 @@ Keep in mind that many (if not most (if not all)) APIs should be considered beta
 * However, this program is based on the OAuth 2.0 specification, so as long as the provider adheres to that, there should be no problem.
 
 ##PART I:SETTING UP YOUR APPLICATION
+
 ###I-0:Choosing a service provider.
+
 When choosing a service provider, you much choose one with the following two properties:
 
 1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
@@ -59,22 +62,30 @@ Your app needs a starting page. This is where the user will begin the process of
 * **$request_type** - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
 
 #####Example
+
 Here is a more concrete example using Facebook:
 ```$service = new API_Service("facebook" ,API_SERVICE::AUTH_URI_FACEBOOK ,FACEBOOK_CLIENT_ID ,FACEBOOK_SCOPE ,"www.myapplication.com/login.php");```
 
 ####I-2c: All that is left to do is to direct a user to to the state's link provided by $service-> link. You may do this by adding it to an anchor's href attribute like so:
+
 ```<a href="<?php echo($service->link); ?>">Log in with OAuth 2.0</a>```
 
 ###I-3: Coding Your Ending Page
+
 Your app needs an ending page. This is where the user will be directed once he or she has authorized service provider to deliver his or her data. This page must match the request uri described in step I-1c.
+
 ####I-3a: Your access token will be passed through a url's hash string. (Things that show up after a "#"). Unfortunately, as far as I can tell, PHP cannot read this hash string.
 
 As of now the best way to do this is to use javascript to redirect the user to a web page with the hash "#" replaced by a question mark "?".
+
 * You may place the following Javascirpt on your ending page before your PHP code in order to do such that:
 ```<script> if(document.URL.indexOf("#") !== -1) window.location = document.URL.replace("#","?");</script>```
 * This code turns the hash string into a query string, thereby making the passed parameters available to php's $_GET and $_REQUEST arrays. Hopefully that's enough to be able to move on...
+
 ####I-3b: On the ending page of your app, import the included "API_Service.php" file using the PHP Standard Library Function include or require.
+
 ####I-3c: Next, call the API_SERVICE static function, Retrive_Data to retrieve data. Your code should look something like this:
+
 * **$data** = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
 But before you can do that, you need to defile all of the parameters to pass into the function.
 * **$retrieve_uri** - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
@@ -83,23 +94,28 @@ But before you can do that, you need to defile all of the parameters to pass int
 * **$data_function** - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
 
 #####Example
+
 Here is a more concrete example using Facebook:
 ```$data = API_SERVICE::Retrive_Data("https://graph.facebook.com/me/",$_REQUEST['access_token']);```
 
 ####I-3d: Now, feel free to do what you want with the retrieved data.
 
 ##PART II:TESTING AS AN END USER
+
 Even though your app is ready, you are still going to want to check to make sure that it works properly as a user.
 
 ###II-1: Signing Up as a User.
+
 You should first create a user account with a service provider so that you can test access to certain information. Note that different providers keep track of different information.
 
 ###II-2: Managing Authorized Apps
+
 There will be times where you need to know whether or not you have authorized an application to access your accout or deauthorize an application to start from scratch.
 You can usually do this from your providers Management Consoles
 	A list of Management Console URIs for a few popular providers is provided in **Part IV-5**.
 
 ##Part III:COMMON ISSUES
+
 * When a user attemps to use my application, Microsoft (or some other provier) claims that my redirect uri is invalid, although I'm sure it's correct.
 	* It seems to take a while for this change to propogate throughout Microsoft's ecosystem. All you can really do is wait. I haven't observed a similar issue with Google or Facebook.
 * I don't know how to set up the data function for API_SERVICE::Retrive_Data.
@@ -126,19 +142,24 @@ You can usually do this from your providers Management Consoles
 	* I'm still working on it...
 
 ##Part IV: USEFUL URIS
+
 Here are some useful URIs
+
 ###IV-1: API Consoles
+
 * Facebook : `https://developers.facebook.com/apps`
 * Google   : `https://code.google.com/apis/console`
 * Microsoft: `https://manage.dev.live.com`
 
 ###IV-2: Auth URIs
+
 * Facebook : `https://www.facebook.com/dialog/oauth`
 * Google   : `https://accounts.google.com/o/oauth2/auth`
 * Microsoft: `https://oauth.live.com/authorize`
 	* These specific urls are available as static members of the API_Service class via API_SERVICE::AUTH_URI_FACEBOOK, API_SERVICE::AUTH_URI_GOOGLE, API_SERVICE::AUTH_URI_MICROSOFT, and API_SERVICE::AUTH_URI_GITHUB.
 
 ###IV-3: Scopes
+
 * Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
 	* Delimiter:`,` (A comma)
 * Google   : (See "Common Issues" section)
@@ -147,17 +168,20 @@ Here are some useful URIs
 	* Delimiter:`%20`(A url encoded space)
 
 ###IV-4: Retrieve URIs
+
 * Facebook : `https://graph.facebook.com/me/`
 * Google   : `https://www.googleapis.com/oauth2/v1/tokeninfo`
 * Microsoft: `https://apis.live.net/v5.0/me/`
 	* These specific urls are available as static members of the API_Service class via API_SERVICE::RETRIEVE_URI_FACEBOOK, API_SERVICE::RETRIEVE_URI_GOOGLE, API_SERVICE::RETRIEVE_URI_MICROSOFT, and API_SERVICE::RETRIEVE_URI_GITHUB.
 
 ###IV-5: Management Console URIs
+
 * Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
 * Facebook : `https://www.facebook.com/settings?tab=applications`
 * Microsoft: `https://profile.live.com/` (Click "Manage" under "Connected To")
 
 ##Part V: DEMOS
+
 There are two demos: login.php and login_multi.php.
 Hopefully, setup is self explanatory, but just in case, in order to get them to work properly, you need to do a few things:
 

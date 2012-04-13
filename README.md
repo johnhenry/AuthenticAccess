@@ -3,13 +3,11 @@ Version: 0.5
 
 ##INTRODUCTION
 This is a library that you can use to allow your PHP application access to user data through a third party service provider.
-
 * Important Note: while the workflow described below requires support for a non-javascript workflow, there is a step in which you may need to use Javascript.
 
 Keep in mind that many (if not most (if not all)) APIs should be considered beta products and are subject to changes.
 
 * If you application does not work and you can't see to find the problem, it's entirely possible that the API's provider may have modified it, so check with them.
-
 * However, this program is based on the OAuth 2.0 specification, so as long as the provider adheres to that, there should be no problem.
 
 ##PART I:SETTING UP YOUR APPLICATION
@@ -17,6 +15,7 @@ Keep in mind that many (if not most (if not all)) APIs should be considered beta
 When choosing a service provider, you much choose one with the following two properties:
 * 1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
 * 2. Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
+
 It's important to note that not all provides support the full OAuth 2.0 specification and will not work with this library.
 * Popular providers NOT CURRENTLY SUPPORTED by this library include include Github, LinkedIn, and Twitter.
 * Popular providers that do support this library include Facebook, Google, and Microsoft.
@@ -24,27 +23,35 @@ It's important to note that not all provides support the full OAuth 2.0 specific
 ###I-1: The OAuth 2.0 API Console
 Each OAuth 2.0 Provider should have an api console to manage your application online.
 ####I-1a: Find it by searching the web for something like "YOUR_SERVICE_PROVIDER OAuth 2.0 API" or try contacting the service provider directly.
-A list of API Consoles URIs for a few popular providers is provided in part IV-1.
+
+A list of API Consoles URIs for a few popular providers is provided in *Part IV-1*.
 ####I-1b: Once you have found the API console, you are going to have to create a new app. The way in which you do this may vary between providers, but it should be easy to figure out.
+
 ####I-1c: Next, set up your applications redirect URI(s). This is where the application will redirect an access token for use when retrieving data.
+
 Note that some providers will need you the specify the exact page to which the data will be directed (like Google), while others only need that the domain be specified (like Microsoft). Still others may not need you actually specify the redirect uri at all(Facebook?).
+
 ####I-1d: Finally get the take note of the application's ID (also know as a lient ID). It will be used very shortly.
+
 ####I-1e: You may notice that your application also has something called a "Secret" or an "Application Secret". You can ignore this as it is not needed for this workflow. It's generally only applicable to workflows that need javascript.
 
 ###I-2: Coding Your Starting Page
+
 Your app needs a starting page. This is where the user will begin the process of allowing the OAuth provider to grand your application data.
+
 ####I-2a: On the starting page of your app, import the included "API_Service.php" file using the PHP Standard Library Function include or require. I prefer to use require, but it doesn't matter that much.
 
 ####I-2b: Next, use the API_Service constructor to create a new service object. Your code should like something like this:
+
 * $service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
 	* But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
 * $state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
 * $auth_uri - This is the address that you will send the user to in order to access their data.
-	* A list of AUTH URIs for some popular providers is provided in part IV-2.
+	* A list of AUTH URIs for some popular providers is provided in *Part IV-2*.
 * $client_id - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
 * $scope - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
 	* Note that the delimiter for the list may also vary by provider.
-	* A list of scopes for some popular providers along with their necessary delimiters is provided in part IV-3.
+	* A list of scopes for some popular providers along with their necessary delimiters is provided in *Part IV-3*.
 * $redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
 	* You will be setting up this page in step I-3.
 * $request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
@@ -68,21 +75,26 @@ As of now the best way to do this is to use javascript to redirect the user to a
 * $data = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
 But before you can do that, you need to defile all of the parameters to pass into the function.
 * $retrieve_uri - Each OAuth service provider should have a url to which you can send your access token and retrieve the requested data.
-	* A list of Retrieve URI's for a few popular providers is provided in Part IV-4.
+	* A list of Retrieve URI's for a few popular providers is provided in *Part IV-4*.
 * $access_token - This is the access token sent by the service provider. If you used the technique described in I-3a, it should be available through $_GET["access_token"] as well as $_REQUEST["access_token"].
 * $data_function - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
+
+#####Example
 Here is a more concrete example using Facebook:
 ```$data = API_SERVICE::Retrive_Data("https://graph.facebook.com/me/",$_REQUEST['access_token']);```
+
 ####I-3d: Now, feel free to do what you want with the retrieved data.
 
 ##PART II:TESTING AS AN END USER
-Even though your app is ready, you are still going to want to check to make sure that it works properly as a user. 
+Even though your app is ready, you are still going to want to check to make sure that it works properly as a user.
+
 ###II-1: Signing Up as a User.
 You should first create a user account with a service provider so that you can test access to certain information. Note that different providers keep track of different information.
+
 ###II-2: Managing Authorized Apps
 There will be times where you need to know whether or not you have authorized an application to access your accout or deauthorize an application to start from scratch.
 You can usually do this from your providers Management Consoles
-	A list of Management Console URIs for a few popular providers is provided in Part IV-5.
+	A list of Management Console URIs for a few popular providers is provided in *Part IV-5*.
 
 ##Part III:COMMON ISSUES
 * When a user attemps to use my application, Microsoft (or some other provier) claims that my redirect uri is invalid, although I'm sure it's correct.

@@ -11,8 +11,8 @@ Keep in mind that many (if not most (if not all)) APIs should be considered beta
 ##PART I:SETTING UP YOUR APPLICATION
 ###I-0:Choosing a service provider.
 When choosing a service provider, you much choose one with the following two properties:
-1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
-2. Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
+* 1. Support for the OAuth 2.0 protocal (Unfortunately Twitter only supports OAuth 1.0 and so cannot be used with this library at this time).
+* 2. Support for a non-javascript workflow. (Unfortunately Linked In, only supports a workflow involving javascript).
 It's important to note that not all provides support the full OAuth 2.0 specification and will not work with this library.
 * Popular providers NOT CURRENTLY SUPPORTED by this library include include Github, LinkedIn, and Twitter.
 * Popular providers that do support this library include Facebook, Google, and Microsoft.
@@ -31,8 +31,8 @@ Note that some providers will need you the specify the exact page to which the d
 Your app needs a starting page. This is where the user will begin the process of allowing the OAuth provider to grand your application data.
 ####I-2a: On the starting page of your app, import the included "API_Service.php" file using the PHP Standard Library Function include or require. I prefer to use require, but it doesn't matter that much.
 ####I-2b: Next, use the API_Service constructor to create a new service object. Your code should like something like this:
-$service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
-But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
+* $service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
+	* But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
 * $state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
 * $auth_uri - This is the address that you will send the user to in order to access their data.
 	* A list of AUTH URIs for some popular providers is provided in part IV-2.
@@ -52,9 +52,9 @@ Here is a more concrete example using Facebook:
 Your app needs an ending page. This is where the user will be directed once he or she has authorized service provider to deliver his or her data. This page must match the request uri described in step I-1c.
 ####I-3a: Your access token will be passed through a url's hash string. (Things that show up after a "#"). Unfortunately, as far as I can tell, PHP cannot read this hash string. 
 As of now the best way to do this is to use javascript to redirect the user to a web page with the hash "#" replaced by a question mark "?".
-	You may place the following Javascirpt on your ending page before your PHP code in order to do such that:
-		```<script> if(document.URL.indexOf("#") !== -1) window.location = document.URL.replace("#","?");</script>```
-	This code turns the hash string into a query string, thereby making the passed parameters available to php's $_GET and $_REQUEST arrays. Hopefully that's enough to be able to move on...
+* You may place the following Javascirpt on your ending page before your PHP code in order to do such that:
+```<script> if(document.URL.indexOf("#") !== -1) window.location = document.URL.replace("#","?");</script>```
+* This code turns the hash string into a query string, thereby making the passed parameters available to php's $_GET and $_REQUEST arrays. Hopefully that's enough to be able to move on...
 ####I-3b: On the ending page of your app, import the included "API_Service.php" file using the PHP Standard Library Function include or require.
 ####I-3c: Next, call the API_SERVICE static function, Retrive_Data to retrieve data. Your code should look something like this:
 * $data = API_SERVICE::Retrive_Data($retrieve_uri,$access_token,$data_function);
@@ -64,7 +64,7 @@ But before you can do that, you need to defile all of the parameters to pass int
 * $access_token - This is the access token sent by the service provider. If you used the technique described in I-3a, it should be available through $_GET["access_token"] as well as $_REQUEST["access_token"].
 * $data_function - This is a funciton that you can define to process data retrieved from the OAuth provider. If the $data_function is omitted, API_SERVICE::Retrieve_Data will return the raw data - usally formatted as JSON.
 Here is a more concrete example using Facebook:
-	```$data = API_SERVICE::Retrive_Data("https://graph.facebook.com/me/",$_REQUEST['access_token']);```
+```$data = API_SERVICE::Retrive_Data("https://graph.facebook.com/me/",$_REQUEST['access_token']);```
 ####I-3d: Now, feel free to do what you want with the retrieved data.
 
 ##PART II:TESTING AS AN END USER
@@ -137,8 +137,8 @@ Here are some useful URIs
 ##Part V: DEMOS
 There are two demos: login.php and login_multi.php.
 Hopefully, setup is self explanatory, but just in case, in order to get them to work properly, you need to do a few things:
-* A) Ensure that each login and request file includes or requires AuthenticAccess.php. Right now, they are set up to improt it from a sister directory entitled "bin".
-* B) Create applications on Facebook, Google, and Microsoft as described in the above documentation and put their client ids in info.php
-* C) Place request.php and request_multi.php on the web (it won't work unless they are located at public factin urls)
-* D) Set "REDIRECT_URI" to point to request.php and request_multi.php within login.php and login_multi.php respectively
+1. Ensure that each login and request file includes or requires AuthenticAccess.php. Right now, they are set up to improt it from a sister directory entitled "bin".
+2. Create applications on Facebook, Google, and Microsoft as described in the above documentation and put their client ids in info.php
+3. Place request.php and request_multi.php on the web (it won't work unless they are located at public factin urls)
+4. Set "REDIRECT_URI" to point to request.php and request_multi.php within login.php and login_multi.php respectively
 

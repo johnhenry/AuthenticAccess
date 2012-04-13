@@ -33,16 +33,16 @@ Your app needs a starting page. This is where the user will begin the process of
 ####I-2b: Next, use the API_Service constructor to create a new service object. Your code should like something like this:
 $service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
 But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
-	*$state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
-	*$auth_uri - This is the address that you will send the user to in order to access their data.
-		A list of AUTH URIs for some popular providers is provided in part IV-2.
-	*$client_id - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
-	*$scope - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
+	-$state - This will be returned to your redirect URI along with your access token. It's best use is if you have multiple services that direct to the same address and you need a way to differentiate between them.
+	-$auth_uri - This is the address that you will send the user to in order to access their data.
+		-A list of AUTH URIs for some popular providers is provided in part IV-2.
+	-$client_id - This is the same as the application's Client ID that you should have gotten from the API Console In step I-1d.
+	-$scope - This defines the user data that your application is requesting. This string takes the form a a delimited list of scopes as defined by your applications service provider.
 		Note that the delimiter for the list may also vary by provider.
 		A list of scopes for some popular providers along with their necessary delimiters is provided in part IV-3.
-	*$redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
+	-$redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
 		You will be setting up this page in step I-3.
-	*$request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
+	-$request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
 Here is a more concrete example using Facebook:
 	```$service = new API_Service("facebook" ,API_SERVICE::AUTH_URI_FACEBOOK ,FACEBOOK_CLIENT_ID ,FACEBOOK_SCOPE ,"www.myapplication.com/login.php");```
 ####I-2c: All that is left to do is to direct a user to to the state's link provided by $service-> link. You may do this by adding it to an anchor's href attribute like so:
@@ -101,7 +101,7 @@ I want to use a provider that is not supported.
 	I'm in the process of adding support for all possible workflows to this library, but the best thing that you can do to help is to contact your provider an ask them to include support for the full spec.
 This documentation is confusing!
 	I'm still working on it...
-		
+
 ##Part IV: USEFUL URIS
 Here are some useful URIs
 ###IV-1: API Consoles
@@ -130,9 +130,9 @@ Here are some useful URIs
 	*These specific urls are available as static members of the API_Service class via API_SERVICE::RETRIEVE_URI_FACEBOOK, API_SERVICE::RETRIEVE_URI_GOOGLE, API_SERVICE::RETRIEVE_URI_MICROSOFT, and API_SERVICE::RETRIEVE_URI_GITHUB.
 
 ###IV-5: Management Console URIs
-*Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
-*Facebook : `"https://www.facebook.com/settings?tab=applications`
-*Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
+-Google   : `https://accounts.google.com/b/0/IssuedAuthSubTokens`
+-Facebook : `"https://www.facebook.com/settings?tab=applications`
+-Microsoft: `https://profile.live.com/ (Click "Manage" under "Connected To")`
 
 ##Part V: DEMOS
 There are two demos: login.php and login_multi.php.

@@ -3,9 +3,13 @@ Version: 0.5
 
 ##INTRODUCTION
 This is a library that you can use to allow your PHP application access to user data through a third party service provider.
+
 * Important Note: while the workflow described below requires support for a non-javascript workflow, there is a step in which you may need to use Javascript.
+
 Keep in mind that many (if not most (if not all)) APIs should be considered beta products and are subject to changes.
+
 * If you application does not work and you can't see to find the problem, it's entirely possible that the API's provider may have modified it, so check with them.
+
 * However, this program is based on the OAuth 2.0 specification, so as long as the provider adheres to that, there should be no problem.
 
 ##PART I:SETTING UP YOUR APPLICATION
@@ -30,6 +34,7 @@ Note that some providers will need you the specify the exact page to which the d
 ###I-2: Coding Your Starting Page
 Your app needs a starting page. This is where the user will begin the process of allowing the OAuth provider to grand your application data.
 ####I-2a: On the starting page of your app, import the included "API_Service.php" file using the PHP Standard Library Function include or require. I prefer to use require, but it doesn't matter that much.
+
 ####I-2b: Next, use the API_Service constructor to create a new service object. Your code should like something like this:
 * $service = new API_Service($state,$auth_url,$client_id,$scope,$redirect_uri,$response_type);
 	* But before you can actually create the service object, you need to define all of the parameters to pass into the function. Note that each parameter must be a string or a number.
@@ -43,8 +48,11 @@ Your app needs a starting page. This is where the user will begin the process of
 * $redirect_uri - This is the page to which the data will be delivered once the user authorizes the service provider to give your application the requested information. This page must match the request uri described in step I-1c.
 	* You will be setting up this page in step I-3.
 * $request_type - While there are multiple request types that you can make, this workflow uses the "token" request type. You can actually leave this parameter out and it will automatically be set to "token".
+
+#####Example
 Here is a more concrete example using Facebook:
 ```$service = new API_Service("facebook" ,API_SERVICE::AUTH_URI_FACEBOOK ,FACEBOOK_CLIENT_ID ,FACEBOOK_SCOPE ,"www.myapplication.com/login.php");```
+
 ####I-2c: All that is left to do is to direct a user to to the state's link provided by $service-> link. You may do this by adding it to an anchor's href attribute like so:
 ```<a href="<?php echo($service->link); ?>">Log in with OAuth 2.0</a>```
 

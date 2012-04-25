@@ -131,10 +131,6 @@ You can usually do this from your providers Management Consoles
 			* If it has "scope", "client_id", etc. attached, that's probably what I call "auth uri".
 * Can I test this locally? (without having to upload it to a remote server?)
 	* You can do this only if the specified redirect URI is accessable to the service provider.
-* Why is there no list of scopes for Google?
-	* I would love to be able to provide a list for you, but I can't find one.) 
-	* A few scopes include `https://www.googleapis.com/auth/userinfo.email` and `https://www.googleapis.com/auth/userinfo.profile`
-	* And yes, they do appear to be long urls.
 * I want to use a provider that is not supported.
 	* While I'm trying my best to provide a workflow that supports all providers, this is difficult because not all providers support the full OAuth 2.0 specification.
 	* I'm in the process of adding support for all possible workflows to this library, but the best thing that you can do to help is to contact your provider an ask them to include support for the full spec.
@@ -162,7 +158,7 @@ Here are some useful URIs
 
 * Facebook : `https://developers.facebook.com/docs/authentication/permissions/`
 	* Delimiter:`,` (A comma)
-* Google   : (See "Common Issues" section)
+* Google   : `https://code.google.com/oauthplayground/`
 	* Delimiter:`+` (A plus sign)
 * Microsoft: `http://msdn.microsoft.com/en-us/library/live/hh243646.aspx`
 	* Delimiter:`%20`(A url encoded space)
